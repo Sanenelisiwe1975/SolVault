@@ -1,0 +1,35 @@
+{
+  "name": "solvault",
+  "version": "1.0.0",
+  "description": "SolVault - Solana Cashier System",
+  "private": true,
+  "workspaces": [
+    "api",
+    "app"
+  ],
+  "scripts": {
+    "install:all": "npm install && cd api && npm install && cd ../app && npm install",
+    "build:program": "anchor build",
+    "test:program": "anchor test",
+    "deploy:program": "anchor deploy",
+    "dev:api": "cd api && npm run dev",
+    "dev:frontend": "cd app && npm run dev",
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:frontend\"",
+    "build:api": "cd api && npm run build",
+    "build:frontend": "cd app && npm run build",
+    "build:all": "npm run build:program && npm run build:api && npm run build:frontend",
+    "test:api": "cd api && npm test",
+    "test:all": "npm run test:program && npm run test:api",
+    "setup:db": "cd api && npm run migrate && npm run seed",
+    "setup": "npm run install:all && npm run setup:db && npm run build:program && npm run deploy:program",
+    "clean": "rm -rf node_modules api/node_modules app/node_modules .anchor target api/dist app/.next",
+    "lint": "cd api && npm run lint && cd ../app && npm run lint"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
